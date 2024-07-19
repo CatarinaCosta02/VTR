@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<materialLib name="lighting" >
+
+    <shaders>
+        <shader name="lighting" 
+                        vs="shaders/lighting.vert"
+                        ps="shaders/lighting.frag" />
+    </shaders>
+
+
+    <materials>
+        <material name="lighting" >
+            <shader name="lighting" >
+                <values>
+                    <valueof uniform="l_dir" type="LIGHT"
+                            component="DIRECTION" id="0" />
+                    <valueof uniform="m_pvm" type="RENDERER"
+                            component="PROJECTION_VIEW_MODEL" />
+                    <valueof uniform="diffuse" type="COLOR"
+                            component = "DIFFUSE" />
+                    <valueof uniform="specular" type="COLOR"
+                            component = "SPECULAR" />     
+                    <valueof uniform="m_normal" type="RENDERER"
+                            component = "NORMAL" />
+                    <valueof uniform="m_view" type="RENDERER"
+                            component="VIEW" />
+                    <valueof uniform="m_vm" type="RENDERER"
+                            component="VIEW_MODEL" />
+                </values>
+            </shader>
+        </material>
+
+  </materials>
+</materialLib>

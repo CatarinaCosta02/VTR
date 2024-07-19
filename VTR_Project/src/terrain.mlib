@@ -1,0 +1,561 @@
+<?xml version="1.0" ?>
+<materialLib name="terrain" >
+
+    <textures>
+
+        <!-- cubeMap for Skybox -->
+
+        <cubeMap name="CM_A" 
+			filePosX="textures/skyboxAutumn/px.png"
+			fileNegX="textures/skyboxAutumn/nx.png"
+			filePosY="textures/skyboxAutumn/py.png"
+			fileNegY="textures/skyboxAutumn/ny.png"
+			filePosZ="textures/skyboxAutumn/pz.png"
+			fileNegZ="textures/skyboxAutumn/nz.png"
+		/>
+        
+        <!-- Global Textures -->
+        <!-- Rock --> 
+        <texture name="rock1" filename="textures/others/rock1.png" mipmap="true" />
+        <texture name="rock2" filename="textures/others/rock2.png" mipmap="true" />
+        <texture name="rock3" filename="textures/others/rock3.png" mipmap="true" />
+        <texture name="rock4" filename="textures/others/rock4.png" mipmap="true" />
+        <!-- Sand -->
+        <texture name="sand1" filename="textures/others/sand1.jpg" mipmap="true" />
+        <!-- <texture name="sand2" filename="textures/others/sand2.jpg" mipmap="true" />
+        <texture name="sand3" filename="textures/others/sand3.jpg" mipmap="true" /> -->
+        <!-- Water -->
+        <texture name="water1" filename="textures/others/water1.png" mipmap="true" />
+        <texture name="water2" filename="textures/others/water2.jpg" mipmap="true" />
+        <texture name="water3" filename="textures/others/water3.jpg" mipmap="true" />
+        <texture name="water4" filename="textures/others/water4.jpg" mipmap="true" />
+
+        <!-- Autumn Textures -->
+        <!-- <texture name="autumn_forest1" filename="textures/autumn/autumn-forest1.avif" mipmap="true" />
+        <texture name="autumn_forest2" filename="textures/autumn/autumn-forest2.avif" mipmap="true" />-->
+        <texture name="aforest3" filename="textures/autumn/autumn-forest3.png" mipmap="true" />
+        <texture name="awater" filename="textures/autumn/awater3.png" mipmap="true" />
+        
+        <!-- Spring Textures -->
+        <texture name="flowers1" filename="textures/spring/flores1.jpg" mipmap="true" />
+        <texture name="flowers2" filename="textures/spring/flores2.jpg" mipmap="true" />
+        <texture name="flowers3" filename="textures/spring/flores3.jpeg" mipmap="true" />
+        <texture name="flowers4" filename="textures/spring/flores4.jpg" mipmap="true" />
+        <texture name="flowers5" filename="textures/spring/flores5.jpg" mipmap="true" />
+        <texture name="flowers6" filename="textures/spring/flores6.jpg" mipmap="true" />
+        <texture name="flowers7" filename="textures/spring/flores7.jpg" mipmap="true" />
+
+
+        <!-- Summer Textures -->
+        <texture name="forest1" filename="textures/summer/forest1.jpg" mipmap="true" />
+        <texture name="grass1" filename="textures/summer/grass1.png" mipmap="true" />
+        <!-- <texture name="grass2" filename="textures/summer/grass2.png" mipmap="true" /> -->
+
+        <!-- Winter Textures -->
+        <texture name="snow1" filename="textures/winter/snow1.png" mipmap="true" />
+        <texture name="snow2" filename="textures/winter/snow2.jpg" mipmap="true" />
+        <texture name="ice" filename="textures/winter/ice.jpg" mipmap="true" />
+        <texture name="iceSpec" filename="textures/winter/iceSpec.jpg" mipmap="true" />
+        <texture name="snow3" filename="textures/winter/snow3.png" mipmap="true" />
+
+    </textures>
+
+
+    <shaders>
+        <shader name="skyBox"   vs = "shaders/skybox/skybox.vert"
+                                ps = "shaders/skybox/skybox.frag" />
+
+		<shader name="terrainS"         vs="shaders/terrain/terrain.vert" 
+                                        ps="shaders/terrain/terrainS.frag"/>
+        <shader name="terrainW"         vs="shaders/terrain/terrain.vert" 
+                                        ps="shaders/terrain/terrainW.frag"/>
+        <shader name="terrainA"         vs="shaders/terrain/terrain.vert" 
+                                        ps="shaders/terrain/terrainA.frag"/>
+        <shader name="terrainSP"        vs="shaders/terrain/terrain.vert" 
+                                        ps="shaders/terrain/terrainSP.frag"/>
+	</shaders>
+
+    <states>
+        <state name="skybox" >
+            <CULL_TYPE value="FRONT" />
+        </state>
+    </states>
+
+    <materials>
+        <material name="skybox" >
+            <shader name="skyBox" >
+                <values>
+                    <valueof uniform="m_pvm" 
+                            type="RENDERER" 
+                            component="PROJECTION_VIEW_MODEL" />
+                    <valueof uniform="cam_pos" 
+                            type="CAMERA"
+                            component="POSITION" />
+                      <valueof uniform="tex_cm" 
+                            type="TEXTURE_BINDING" 
+                            component="UNIT" id ="0" />
+              </values>
+            </shader>
+            <textures>
+               <texture name="CM_A" UNIT="0" >
+                    <WRAP_S value="CLAMP_TO_EDGE" />
+                    <WRAP_T value="CLAMP_TO_EDGE" />
+                </texture>
+            </textures>
+            <state name = "skybox" />
+        </material>
+        <!--SPRING-->
+        <material name="terrainSP">
+            <shader name="terrainSP">
+                <values>
+                    <valueof uniform="m_pvm" 
+                                type="RENDERER"  
+                                component="PROJECTION_VIEW_MODEL" />
+                                    
+                    <valueof uniform="m_viewModel" 
+                                type="RENDERER"  
+                                component="VIEW_MODEL" />
+                        
+                    <valueof uniform="m_view" 
+                                type="RENDERER"  
+                                component="VIEW" />
+                        
+                    <valueof uniform="m_normal" 
+                                type="RENDERER"  
+                                component="NORMAL" />
+                        
+                    <valueof uniform="l_dir"
+                                type="LIGHT"
+                                component="DIRECTION" id="0"/>
+
+                    <!-- <valueof uniform="normalMap"
+                                type="TEXTURE_BINDING" 
+                                component="UNIT" id="1" />
+
+                    <valueof uniform="specularMap"
+                                type="TEXTURE_BINDING" 
+                                component="UNIT" id="2" /> -->
+
+                    <!-- Textures -->
+                    <valueof uniform="rock1"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="1" />	
+                    <valueof uniform="rock2"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="2" />	
+                    <valueof uniform="rock3"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="3" />	
+                    <valueof uniform="rock4"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="4" />	
+                                
+                    <valueof uniform="sand1"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="5" />
+
+                    <valueof uniform="water1"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="6" /> 
+                    <valueof uniform="water2"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="7" /> 
+                    <valueof uniform="water3"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="8" /> 
+                    <valueof uniform="water4"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="9" /> 
+                                
+                    <valueof uniform="forest1"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="10" />	
+                    
+                    <valueof uniform="flowers1"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="11" />			
+                    <valueof uniform="flowers2"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="12" />			
+                    <valueof uniform="flowers3"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="13" />			
+                    <valueof uniform="flowers4"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="14" />			
+                    <valueof uniform="flowers5"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="15" />			
+                    <valueof uniform="flowers6"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="16" />			
+                    <valueof uniform="flowers7"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="17" />			
+                    
+
+                    <!-- <valueof uniform="autumn_forest1"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="8" />							 -->
+                    	
+
+                </values>
+            </shader>
+            <textures>
+
+                <texture name="CM_A" UNIT="0" >
+                    <WRAP_S value="CLAMP_TO_EDGE" />
+                    <WRAP_T value="CLAMP_TO_EDGE" />
+                </texture>
+
+                <texture name="rock1" UNIT = "1" />
+                <texture name="rock2" UNIT = "2" />
+                <texture name="rock3" UNIT = "3" />
+                <texture name="rock4" UNIT = "4" />
+                
+                <texture name="sand1" UNIT = "5" />
+                
+                <texture name="water1" UNIT = "6" />
+                <texture name="water2" UNIT = "7" />
+                <texture name="water3" UNIT = "8" />
+                <texture name="water4" UNIT = "9" />
+
+                <texture name="forest1" UNIT = "10" />
+
+                <texture name="flowers1" UNIT = "11" />
+                <texture name="flowers2" UNIT = "12" />
+                <texture name="flowers3" UNIT = "13" />
+                <texture name="flowers4" UNIT = "14" />
+                <texture name="flowers5" UNIT = "15" />
+                <texture name="flowers6" UNIT = "16" />
+                <texture name="flowers7" UNIT = "17" />
+
+                <!-- <texture name="autumn_forest1" UNIT = "0" />
+                <texture name="autumn_forest2" UNIT = "1" />
+                <texture name="autumn_forest3" UNIT = "2" /> -->
+
+
+            </textures>
+          
+        </material>
+        <!--SUMMER-->
+        <material name="terrainS">
+            <shader name="terrainS">
+                <values>
+                    <valueof uniform="m_pvm" 
+                                type="RENDERER"  
+                                component="PROJECTION_VIEW_MODEL" />
+                                    
+                    <valueof uniform="m_viewModel" 
+                                type="RENDERER"  
+                                component="VIEW_MODEL" />
+                        
+                    <valueof uniform="m_view" 
+                                type="RENDERER"  
+                                component="VIEW" />
+                        
+                    <valueof uniform="m_normal" 
+                                type="RENDERER"  
+                                component="NORMAL" />
+                        
+                    <valueof uniform="l_dir"
+                                type="LIGHT"
+                                component="DIRECTION" id="0"/>
+
+                    <!-- <valueof uniform="normalMap"
+                                type="TEXTURE_BINDING" 
+                                component="UNIT" id="1" />
+
+                    <valueof uniform="specularMap"
+                                type="TEXTURE_BINDING" 
+                                component="UNIT" id="2" /> -->
+
+                    <!-- Textures -->
+                    <valueof uniform="rock1"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="1" />	
+                    <valueof uniform="rock2"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="2" />	
+                    <valueof uniform="rock3"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="3" />	
+                    <valueof uniform="rock4"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="4" />	
+                                
+                    <valueof uniform="sand1"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="5" />
+
+                    <valueof uniform="water1"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="6" /> 
+                    <valueof uniform="water2"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="7" /> 
+                    <valueof uniform="water3"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="8" /> 
+                    <valueof uniform="water4"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="9" /> 
+
+                    <valueof uniform="grass1"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="10" />			
+
+                    <valueof uniform="forest1"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="11" />							
+
+                    <!-- <valueof uniform="autumn_forest1"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="8" />							 -->
+                    	
+
+                </values>
+            </shader>
+            <textures>
+
+                <texture name="CM_A" UNIT="0" >
+                    <WRAP_S value="CLAMP_TO_EDGE" />
+                    <WRAP_T value="CLAMP_TO_EDGE" />
+                </texture>
+
+                <!-- Global Textures -->
+                <!-- Rock -->
+                <texture name="rock1" UNIT = "1" />
+                <texture name="rock2" UNIT = "2" />
+                <texture name="rock3" UNIT = "3" />
+                <texture name="rock4" UNIT = "4" />
+                <!-- Sand -->
+                <texture name="sand1" UNIT = "5" />
+                <!-- <texture name="sand2" UNIT = "6" />
+                <texture name="sand3" UNIT = "7" /> -->
+                <!-- Water -->
+                <texture name="water1" UNIT = "6" />
+                <texture name="water2" UNIT = "7" />
+                <texture name="water3" UNIT = "8" />
+                <texture name="water4" UNIT = "9" />
+
+                <!-- Autumn Textures -->
+                <!-- <texture name="autumn_forest1" UNIT = "0" />
+                <texture name="autumn_forest2" UNIT = "1" />
+                <texture name="autumn_forest3" UNIT = "2" /> -->
+
+                <!-- Spring Textures -->
+
+
+                <!-- Summer Textures -->
+                <texture name="forest1" UNIT = "10" />
+                <texture name="grass1" UNIT = "11" />
+
+                <!-- Winter Textures -->
+                <!-- <texture name="snow2" UNIT = "16" /> -->
+
+            </textures>
+          
+        </material>
+
+        <!--WINTER-->
+        <material name="terrainW">
+            <shader name="terrainW">
+                <values>
+                    <valueof uniform="m_pvm" 
+                                type="RENDERER"  
+                                component="PROJECTION_VIEW_MODEL" />
+                                    
+                    <valueof uniform="m_viewModel" 
+                                type="RENDERER"  
+                                component="VIEW_MODEL" />
+                        
+                    <valueof uniform="m_view" 
+                                type="RENDERER"  
+                                component="VIEW" />
+                        
+                    <valueof uniform="m_normal" 
+                                type="RENDERER"  
+                                component="NORMAL" />
+                        
+                    <valueof uniform="l_dir"
+                                type="LIGHT"
+                                component="DIRECTION" id="0"/>
+
+                    <!-- Textures -->
+                    <valueof uniform="rock1"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="1" />	
+                    <valueof uniform="rock2"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="2" />	
+                    <valueof uniform="rock3"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="3" />	
+                    <valueof uniform="rock4"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="4" />	
+                                
+                    <valueof uniform="sand1"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="5" />
+
+                    <valueof uniform="ice"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="6" /> 
+
+                    <valueof uniform="snow2"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="7" />			
+
+                    <valueof uniform="forest1"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="8" />							
+
+                    <valueof uniform="snow1"
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="9" />
+
+                    <valueof uniform="iceSpec"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="10" />
+                    
+                    <valueof uniform="snow3"
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="11" />
+                    	
+
+                </values>
+            </shader>
+            <textures>
+
+                <texture name="CM_A" UNIT="0" >
+                    <WRAP_S value="CLAMP_TO_EDGE" />
+                    <WRAP_T value="CLAMP_TO_EDGE" />
+                </texture>
+
+                <!-- Global Textures -->
+                <!-- Rock -->
+                <texture name="rock1" UNIT = "1" />
+                <texture name="rock2" UNIT = "2" />
+                <texture name="rock3" UNIT = "3" />
+                <texture name="rock4" UNIT = "4" />
+
+                <texture name="sand1" UNIT = "5" />
+                <texture name="ice" UNIT = "6" />
+                
+                <texture name="snow2" UNIT = "7" />
+                <texture name="forest1" UNIT = "8" />
+                <!-- Winter Textures -->
+                <texture name="snow1" UNIT = "9" />
+                
+                <texture name="ice" UNIT = "10" />
+                <texture name="snow3" UNIT = "11" />
+                <!-- <texture name="snow2" UNIT = "16" /> -->
+
+            </textures>
+            
+        </material>
+        <!--AUTUM-->
+        <material name="terrainA">
+            <shader name="terrainA">
+                <values>
+                    <valueof uniform="m_pvm" 
+                                type="RENDERER"  
+                                component="PROJECTION_VIEW_MODEL" />
+                                    
+                    <valueof uniform="m_viewModel" 
+                                type="RENDERER"  
+                                component="VIEW_MODEL" />
+                        
+                    <valueof uniform="m_view" 
+                                type="RENDERER"  
+                                component="VIEW" />
+                        
+                    <valueof uniform="m_normal" 
+                                type="RENDERER"  
+                                component="NORMAL" />
+                        
+                    <valueof uniform="l_dir"
+                                type="LIGHT"
+                                component="DIRECTION" id="0"/>
+
+                    <!-- Textures -->
+                    <valueof uniform="rock1"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="1" />	
+                    <valueof uniform="rock2"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="2" />	
+                    <valueof uniform="rock3"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="3" />	
+                    <valueof uniform="rock4"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="4" />	
+                                
+                    <valueof uniform="sand1"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="5" />
+
+                    <valueof uniform="water1"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="6" /> 
+                    <valueof uniform="water2"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="7" /> 
+                    <valueof uniform="water3"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="8" /> 
+                    <valueof uniform="water4"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="9" /> 
+                                                    
+
+                    <valueof uniform="aforest3"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="10" />			
+
+                    <valueof uniform="forest1"      
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="11" />							
+
+                    <valueof uniform="snow1"
+                                type="TEXTURE_BINDING" context="CURRENT"
+                                component="UNIT" id="12" />
+                    	
+
+                </values>
+            </shader>
+            <textures>
+
+                <texture name="CM_A" UNIT="0" >
+                    <WRAP_S value="CLAMP_TO_EDGE" />
+                    <WRAP_T value="CLAMP_TO_EDGE" />
+                </texture>
+
+                <!-- Global Textures -->
+                <!-- Rock -->
+                <texture name="rock1" UNIT = "1" />
+                <texture name="rock2" UNIT = "2" />
+                <texture name="rock3" UNIT = "3" />
+                <texture name="rock4" UNIT = "4" />
+
+                <texture name="sand1" UNIT = "5" />
+                <texture name="water1" UNIT = "6" />
+                <texture name="water2" UNIT = "7" />
+                <texture name="water3" UNIT = "8" />
+                <texture name="water4" UNIT = "9" />
+                
+                <texture name="aforest3" UNIT = "10" />
+                <texture name="forest1" UNIT = "11" />
+                <!-- Winter Textures -->
+                <texture name="snow1" UNIT = "12" />
+                <!-- <texture name="snow2" UNIT = "16" /> -->
+
+            </textures>
+            
+        </material>
+    </materials>
+
+</materialLib>

@@ -1,0 +1,17 @@
+newmtl front
+	map_Kd cubemap\dawn.png
+
+newmtl back
+	map_Kd cubemap\dawn.png
+
+newmtl right
+	map_Kd cubemap\dawn.png
+	
+newmtl top
+	map_Kd cubemap\dawn_top.png
+	
+newmtl left
+	map_Kd cubemap\dawn.png
+	
+newmtl bottom
+	map_Kd cubemap\dawn_bottom.png
